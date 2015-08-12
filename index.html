@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title><?= title ?></title>
+  <!-- Bootstrap -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+
+  <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+  <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+  <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+  <![endif]-->
+  <style>
+  body {
+    padding-top: 50px;
+  }
+  .mainpanel {
+    padding: 40px 15px;
+  }
+  .logpanel {
+    width: 100%;
+  }
+  th.head {
+    white-space: nowrap;
+  }
+  </style>
+</head>
+<body>
+  <nav class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <div class="navbar-brand"><?= title ?></div>
+      </div>
+    </div>
+  </nav>
+
+  <div class="mainpanel">
+    <div class="well">
+      <form class="form-horizontal" onsubmit="javascript:return false;" id="collect_form">
+        <fieldset>
+          <div class="form-group">
+            <label for="start-date" class="col col-xs-12 col-sm-4 col-md-3 control-label">start date</label>
+            <div class="col col-xs-7 col-sm-4 col-md-2">
+              <input type="date" name="sdate" id="sdate" class="form-control" value="<?= sdate ?>">
+            </div>
+            <div class="col-xs-offset-0 col-sm-offset-2 col-md-offset-2"></div>
+          </div>
+          <div class="form-group">
+            <label for="start-date" class="col col-xs-12 col-sm-4 col-md-3 control-label">end date</label>
+            <div class="col col-xs-7 col-sm-4 col-md-2">
+              <input type="date" name="edate" id="edate" class="form-control" value="<?= edate ?>">
+            </div>
+            <div class="col-xs-offset-0 col-sm-offset-2 col-md-offset-2"></div>
+          </div>
+
+          <div class="form-group">
+            <div class="col-xs-offset-0 col-sm-offset-2 col-md-offset-3">
+              <label>
+                <input type="checkbox" name="bd" value="bd" checked>
+                output bd sheet
+                </label>
+            </div>
+            <div class="col-xs-offset-0 col-sm-offset-2 col-md-offset-2"></div>
+          </div>
+          <div class="form-group">
+            <div class="col col-xs-9 col-xs-offset-3 col-sm-8 col-sm-offset-4 col-md-9 col-md-offset-3">
+              <button type="submit" class="btn btn-success btn-lg" onclick='sendTo()'> collect </button>
+              <button type="reset" class="btn btn-default btn-lg" onclick='reSet()'> reset </button>
+            </div>
+          </div>
+        </fieldset>
+      </form>
+    </div>
+  </div>
+
+  <!-- call back data output -->
+  <div id="response"></div>
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+  <script type="text/javascript">
+    function sendTo() {
+      google.script.run.withSuccessHandler(onSuccess).processForm(document.getElementById("collect_form"));
+      reSet();
+    }
+    function onSuccess(res){
+      var list = document.getElementById("response");
+      list.innerHTML = res;
+    }
+    function reSet() {
+      var list = document.getElementById("response");
+      list.innerHTML = "";
+    }
+  </script>
+</body>
+</html>
