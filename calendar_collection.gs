@@ -373,6 +373,7 @@ function writeBDFormatSheet(event_array, spread_sheet) {
 
           item_description = item.replace(url_regexp, "");
           item_description = item_description.replace(type_regexp, "");
+          item_description = item_description.trim();
           break;
         case "url":
           item_url = item;
